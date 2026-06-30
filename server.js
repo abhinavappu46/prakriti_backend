@@ -10,9 +10,7 @@ const app=express();
 console.log("EMAIL_USER:", process.env.EMAIL_USER);
 console.log("EMAIL_PASS exists:", !!process.env.EMAIL_PASS);
 app.use(express.json());
-app.use(cors({
-    origin:"https://prakriti-interior-design.onrender.com"
-}));
+app.use(cors());
 app.use("/consultation",ConsultationRoute);
 
 

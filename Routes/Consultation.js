@@ -1,13 +1,13 @@
 const express = require("express");
 const router=express.Router();
-const transporter=require('../config/mailer');
+const resend=require('../config/mailer');
 
 
 router.post("/", async (req,res)=>{
 
   const {Name,Email,Phone,Service} = req.body;
   const AdminMail={
-    from: process.env.EMAIL_USER,
+    from: "Prakriti Interiors <onboarding@resend.dev>",
 
             to: process.env.EMAIL_USER,
 
@@ -164,134 +164,10 @@ router.post("/", async (req,res)=>{
   </div>
   `
   };
-  const CustomerMail = {
-    from: process.env.EMAIL_USER,
-    to: Email,
-    subject: "Thank You for Contacting Prakriti Interiors",
-
-  html: `
-  <div style="
-      max-width:650px;
-      margin:auto;
-      background:#0d0d0d;
-      color:white;
-      font-family:Arial,sans-serif;
-      border-radius:12px;
-      overflow:hidden;
-  ">
-
-      <div style="
-          background:#b08a1a;
-          padding:25px;
-          text-align:center;
-      ">
-
-          <h1 style="margin:0;color:white;">
-              Prakriti Interiors
-          </h1>
-
-      </div>
-
-      <div style="padding:35px;">
-
-          <h2 style="color:#D4AF37;">
-              Hello ${Name},
-          </h2>
-
-          <p style="font-size:16px;line-height:1.8;color:#dddddd;">
-
-              Thank you for choosing
-              <strong>Prakriti Interiors</strong>.
-
-              <br><br>
-
-              We have successfully received your consultation request.
-
-              <br><br>
-
-              Our design experts will review your enquiry and contact you within the next
-              <strong>24 hours</strong>.
-
-          </p>
-
-          <hr style="border:none;border-top:1px solid #333;margin:30px 0;">
-
-          <h3 style="color:#D4AF37;">
-              Your Submitted Details
-          </h3>
-
-          <table style="width:100%;line-height:2;color:#eeeeee;">
-
-              <tr>
-                  <td><strong>Name</strong></td>
-                  <td>${Name}</td>
-              </tr>
-
-              <tr>
-                  <td><strong>Email</strong></td>
-                  <td>${Email}</td>
-              </tr>
-
-              <tr>
-                  <td><strong>Phone</strong></td>
-                  <td>${Phone}</td>
-              </tr>
-
-              <tr>
-                  <td><strong>Project</strong></td>
-                  <td>${Service}</td>
-              </tr>
-
-          </table>
-
-          <br><br>
-
-          <p style="font-size:15px;color:#cccccc;">
-
-              We look forward to creating a beautiful space that reflects your personality and lifestyle.
-
-          </p>
-
-          <br>
-
-          <div style="text-align:center;">
-
-              <a href="https://prakriti-interior-design.onrender.com"
-                 style="
-                 background:#D4AF37;
-                 color:#111;
-                 padding:14px 28px;
-                 text-decoration:none;
-                 border-radius:30px;
-                 font-weight:bold;
-                 ">
-                  Visit Our Website
-              </a>
-
-          </div>
-
-      </div>
-
-      <div style="
-          background:#111;
-          text-align:center;
-          padding:18px;
-          color:#999;
-      ">
-
-          © 2026 Prakriti Interiors<br>
-
-          Luxury Interior Design Studio
-
-      </div>
-
-  </div>
-`
-};
+    
 try {
     
-    await transporter.sendMail(AdminMail);
-    await transporter.sendMail(CustomerMail);
+    await resend.emails.send(AdminMail);
      res.status(200).json({
             message: "Email sent successfully"
         });
