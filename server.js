@@ -9,7 +9,9 @@ const app=express();
 
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin:"https://prakriti-interior-design.onrender.com"
+}));
 app.use("/consultation",ConsultationRoute);
 
 
