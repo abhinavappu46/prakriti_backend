@@ -1,13 +1,11 @@
 const express = require("express");
 const router=express.Router();
 const resend=require('../config/mailer');
-
-
 router.post("/", async (req,res)=>{
 
   const {Name,Email,Phone,Service} = req.body;
   const AdminMail={
-    from: "Prakriti Interiors <onboarding@resend.dev>",
+    from: "Prakriti Interiors Admin <onboarding@resend.dev>",
 
             to: process.env.EMAIL_USER,
 
